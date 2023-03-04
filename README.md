@@ -48,3 +48,39 @@ being sent.
 
 As this is an early stage prototype, no contribution guidelines are available,
 but help is always welcome!
+
+## New functionalities
+
+Added code to map LG device events into MQTT topics (thanks to Flip76 https://github.com/Flip76/thinq2_mqtt/).
+Example:
+
+    poetry install
+    COUNTRY_CODE=US LANGUAGE_CODE=en-US poetry run python thinq2_mqtt.py
+    
+Other configuration variables:
+<ul>
+<li>MQTT_CLIENT_NAME - name of the MQTTclient (default 'thinq_mqtt')
+<li>MQTT_HOST - hostname or ip address of MQTT server (default 'localhost')
+<li>MQTT_PORT - port of MQTT server (default '1883')
+<li>MQTT_TOPIC - topic to which events will be stored to (default 'thinq')
+<li>MQTT_USER - username for MQTT authentication (empty by default)
+<li>MQTT_PASS - possword for MQTT authentication (empty by default)
+<li>MQTT_QOS - qos level (default '2')
+</ul>
+    
+Added Dockerfile to create docker image so service can run in container:
+
+    git clone https://github.com/kamiKAC/thinq2-python/
+    cd thinq2-python
+    docker build -ti thinq2_mqtt:1.0
+    mkdir -p state
+    docker run -ti -e COUNTRY_CODE=US -e LANGUAGE_CODE=en-US -v ./state/:/thinq2-python/state/ thinq2-mqtt:1.0
+
+After initial configuration start docker in daemon mode:
+
+    docker run -d --name thinq2_mqtt -e COUNTRY_CODE=US -e LANGUAGE_CODE=en-US -v ./state/:/thinq2-python/state/ thinq2-mqtt:1.0
+
+To stop container:
+
+    docker stop thinq2_mqtt
+
