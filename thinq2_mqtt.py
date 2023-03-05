@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 
 #############################################################################
-# Version:      1.1
-# Changes:      2020-10-23  Error handling for mqtt-connect added
+# Version:      1.2
+# Changes:      2023-03-04  Configuration by environment variables added
+# Notice:       File comes from https://github.com/Flip76/thinq2_mqtt/
 #############################################################################
 
 import os
@@ -15,17 +16,17 @@ import logging
 from thinq2.controller.auth import ThinQAuth
 from thinq2.controller.thinq import ThinQ
 
-mqtt_client_name="thinq_mqtt"
-mqtt_host="localhost"
-mqtt_port=1883
-mqtt_topic="thinq"
-mqtt_user=""
-mqtt_pass=""
-mqtt_qos=2
+mqtt_client_name=os.environ.get("MQTT_CLIENT_NAME", "thinq_mqtt")
+mqtt_host=os.environ.get("MQTT_HOST", "localhost")
+mqtt_port=int(os.environ.get("MQTT_PORT", "1883"))
+mqtt_topic=os.environ.get("MQTT_TOPIC", "thinq")
+mqtt_user=os.environ.get("MQTT_USER", "")
+mqtt_pass=os.environ.get("MQTT_PASS", "")
+mqtt_qos=int(os.environ.get("MQTT_QOS", "2"))
 
 LANGUAGE_CODE = os.environ.get("LANGUAGE_CODE", "ko-KR")
 COUNTRY_CODE = os.environ.get("COUNTRY_CODE", "KR")
-STATE_FILE = os.environ.get("STATE_FILE", "state.json")
+STATE_FILE = os.environ.get("STATE_FILE", "state/state.json")
 
 #############################################################################
 # load from existing state or create a new client                           #
@@ -79,6 +80,8 @@ if len(devices.items) == 0:
     print("If you are using ThinQ v1 devices, try https://github.com/sampsyo/wideq")
     exit(1)
 
+print("MQTT_HOST: {}".format(mqtt_host))
+print("MQTT_PORT: {}".format(mqtt_port))
 print("UserID: {}".format(thinq.auth.profile.user_id))
 print("User #: {}\n".format(thinq.auth.profile.user_no))
 print("Devices:\n")
