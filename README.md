@@ -66,21 +66,25 @@ Other configuration variables:
 <li>MQTT_USER - username for MQTT authentication (empty by default)
 <li>MQTT_PASS - possword for MQTT authentication (empty by default)
 <li>MQTT_QOS - qos level (default '2')
+<li>STATE_FILE - location of state (config) file (default 'state/state.json')
 </ul>
     
-Added Dockerfile to create docker image so service can run in container:
+Service can be run in container:
 
-    git clone https://github.com/kamiKAC/thinq2-python/
-    cd thinq2-python
-    docker build -ti thinq2_mqtt:1.0
     mkdir -p state
-    docker run -ti -e COUNTRY_CODE=US -e LANGUAGE_CODE=en-US -v ./state/:/thinq2-python/state/ thinq2-mqtt:1.0
+    docker run -ti -e COUNTRY_CODE=US -e LANGUAGE_CODE=en-US -v ./state/:/thinq2-python/state/ kamikac/thinq2-mqtt:1.2
 
 After initial configuration start docker in daemon mode:
 
-    docker run -d --name thinq2_mqtt -e COUNTRY_CODE=US -e LANGUAGE_CODE=en-US -v ./state/:/thinq2-python/state/ thinq2-mqtt:1.0
+    docker run -d --name thinq2_mqtt -e COUNTRY_CODE=US -e LANGUAGE_CODE=en-US -v ./state/:/thinq2-python/state/ kamikac/thinq2-mqtt:1.2
 
 To stop container:
 
     docker stop thinq2_mqtt
 
+
+To build container from sources:
+
+    git clone https://github.com/kamiKAC/thinq2-python/
+    cd thinq2-python
+    docker build -t thinq2-mqtt:1.2 .
