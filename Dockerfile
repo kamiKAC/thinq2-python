@@ -2,7 +2,7 @@ FROM --platform=$TARGETPLATFORM python:3.9-alpine3.17 as base
 ENV PIP_DEFAULT_TIMEOUT=100 \
     PIP_DISABLE_PIP_VERSION_CHECK=1 \
     PIP_NO_CACHE_DIR=1 \
-    CARGO_NET_GIT_FETCH_WITH_CLI=1
+    CARGO_NET_GIT_FETCH_WITH_CLI=true
     
 RUN apk add --no-cache gcc musl-dev libffi-dev cargo openssl-dev=3.0.8-r0 git libc6-compat openssl=3.0.8-r0 openssl1.1-compat \
     && mkdir -p /thinq2-python
