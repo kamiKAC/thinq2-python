@@ -23,10 +23,10 @@ FROM --platform=$TARGETPLATFORM python:3.9-alpine3.17 as thinq
 
 RUN adduser -D thinq
 USER thinq
-COPY --from=base /opt/venv /opt/venv
+COPY --from=base --chown=thinq:thinq /opt/venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
 WORKDIR /thinq2-python
-COPY thinq2_mqtt.py start.sh ./
+COPY --chown=thinq:thinq thinq2_mqtt.py start.sh ./
 
 RUN mkdir -p /thinq2-python/state \
     && chmod +x start.sh
