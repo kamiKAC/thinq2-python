@@ -74,6 +74,7 @@ pipeline {
                 container.stop()
             }
             junit '*.xml' */
+            echo 'Finished'
         }
     }
 }
