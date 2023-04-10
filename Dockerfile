@@ -4,7 +4,7 @@ ENV PIP_DEFAULT_TIMEOUT=100 \
     PIP_NO_CACHE_DIR=1 \
     CARGO_NET_GIT_FETCH_WITH_CLI=true
     
-RUN apk add --no-cache gcc musl-dev libffi-dev cargo openssl-dev=3.0.8-r0 git libc6-compat openssl=3.0.8-r0 openssl1.1-compat \
+RUN apk add --no-cache gcc musl-dev libffi-dev cargo openssl-dev git libc6-compat openssl openssl1.1-compat \
     && mkdir -p /thinq2-python
 
 WORKDIR /thinq2-python
