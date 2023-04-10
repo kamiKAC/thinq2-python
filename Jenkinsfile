@@ -1,47 +1,16 @@
 pipeline {
     agent any
+        parameters {
+        booleanParam(name: "push_to_registry", defaultValue: true, description: "Should image be pushed to registry?")
+        booleanParam(name: "add_latest_tag", defaultValue: true, description: "Should tag latest be added to pushed image?")
+        string(name: "registry", defaultValue: "kamikac/thinq2-mqtt", trim: true, description: "Registry where images are pushed")
+        string(name: "version", defaultValue: "0", trim: true, description: "Release version. If 0 build version is used")
+        string(name: "platforms", defaultValue: "linux/arm/v7,linux/arm/v6,linux/amd64,linux/arm64", description: "Input comma separated platforms for build")
+    }
     environment {
-        registry = "kamikac/thinq2-mqtt"
-        platforms = "linux/arm/v7,linux/arm/v6,linux/amd64"
+        image_build = "${params.version == "0" ? env.BUILD_ID : params.version}"
     }
     stages {
-/*        stage('Docker build') {
-             steps {
-                script {
-                    customImage = docker.build("app-image:${env.BUILD_ID}")
-                }
-            }
-        }
-        stage('Docker - app full test') {
-            steps {
-                script {
-                    withCredentials([file(credentialsId: 'state_json', variable: 'STATE_JSON')]) {
-                        dir('state') {
-                            docker.image('clipse-mosquitto:2.0.15-openssl').withRun("--name mosquitto -p 1883:1883")
-                            container = customImage.withRun("--link mosquitto:mosquitto -v $PWD:/thinq2-python/state -e DB_HOST=mosquitto") {}
-                        }
-                    }
-                }
-            }
-        }
-        stage('Docker - app external test') {
-            steps {
-                script {
-                    container = customImage.run('-p 8080:8080','node app.js') 
-                }
-                sh 'sleep 10'
-                sh 'wget -O- $(hostname):8080'
-            }
-        }
-        stage('Docker - send image to DockerHub') {
-            steps {
-                script {
-                    withRegistry("https://docker.io/",'dockerhub')
-                    customImage.Image.push("app-image:${env.BUILD_ID}")
-                }
-            }
-        }
-*/
         stage('Docker - Check / enable multiarch support') {
             steps {
                 script {
@@ -62,18 +31,25 @@ pipeline {
             }
             steps {
                 script {
-                    sh "echo $DOCKERHUB_CREDS_PSW|docker login --username $DOCKERHUB_CREDS_USR --password-stdin \
-                    && docker buildx build -t ${registry}:${env.BUILD_ID} --platform $platforms --push ."
+                    if (params.add_latest_tag.toBoolean()) {
+                        env.docker_params = "-t ${params.registry}:latest"
+                    }
+                    else {
+                        env.docker_params = ""
+                    }
+                    if (params.push_to_registry.toBoolean()) {
+                        sh "echo $DOCKERHUB_CREDS_PSW|docker login --username $DOCKERHUB_CREDS_USR --password-stdin \
+                        && docker buildx build -t ${params.registry}:${env.image_build} ${env.docker_params} --platform ${params.platforms} --push ."
+                    }
+                    else {
+                        sh "docker buildx build -t ${params.registry}:${env.image_build} ${env.docker_params} --platform ${params.platforms} ."
+                    }
                 }
             }
         }
     }
     post {
         always {
-/*            script {
-                container.stop()
-            }
-            junit '*.xml' */
             echo 'Finished'
         }
     }
