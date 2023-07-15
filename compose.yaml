@@ -1,0 +1,9 @@
+services:
+    thinq2_mqtt:
+        image: "kamikac/thinq2-mqtt"
+        volumes:
+            - ./state/:/thinq2-python/state/
+        environment:
+             COUNTRY_CODE: "US"
+             LANGUAGE_CODE: "us-US"
+        restart: unless-stopped
