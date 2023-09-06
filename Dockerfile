@@ -1,4 +1,6 @@
-FROM --platform=$TARGETPLATFORM python:3.9-alpine3.18 as base
+ARG BASE_IMAGE=python:3.9-alpine3.18
+
+FROM --platform=$TARGETPLATFORM ${BASE_IMAGE} as base
 ENV PIP_DEFAULT_TIMEOUT=100 \
     PIP_DISABLE_PIP_VERSION_CHECK=1 \
     PIP_NO_CACHE_DIR=1 \
@@ -17,9 +19,8 @@ RUN python -m venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
 
 RUN pip3 -v install .
-RUN pip3 uninstall poetry
 
-FROM --platform=$TARGETPLATFORM python:3.9-alpine3.17 as thinq
+FROM --platform=$TARGETPLATFORM ${BASE_IMAGE} as thinq
 
 RUN adduser -D thinq
 USER thinq
