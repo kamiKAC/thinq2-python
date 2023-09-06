@@ -1,4 +1,4 @@
-FROM --platform=$TARGETPLATFORM python:3.9-alpine3.17 as base
+FROM --platform=$TARGETPLATFORM python:3.9-alpine3.18 as base
 ENV PIP_DEFAULT_TIMEOUT=100 \
     PIP_DISABLE_PIP_VERSION_CHECK=1 \
     PIP_NO_CACHE_DIR=1 \
