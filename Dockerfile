@@ -1,4 +1,4 @@
-ARG BASE_IMAGE=python:3.10-alpine
+ARG BASE_IMAGE=python:3.11-alpine
 
 FROM --platform=$TARGETPLATFORM ${BASE_IMAGE} as base
 ENV PIP_DEFAULT_TIMEOUT=100 \
