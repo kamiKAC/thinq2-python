@@ -6,8 +6,9 @@ authors = [
     {name = "tinkerborg", email="tinkerborg@users.noreply.github.com"}
 ]
 
+requires-python = ">=3.9"
+
 dependencies = [
-'python > 3.9',
 'uplink >= 0.9.7',
 'marshmallow >= 3.19.0',
 'marshmallow-dataclass >= 8.5.11',
