@@ -2,7 +2,9 @@
 name = "thinq2"
 version = "0.1.0"
 description = ""
-authors = ["tinkerborg <tinkerborg@users.noreply.github.com>"]
+authors = [
+    {name = "tinkerborg", email="tinkerborg@users.noreply.github.com"}
+]
 
 [project.dependencies]
 python = "^3.11"
