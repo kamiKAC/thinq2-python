@@ -10,7 +10,7 @@ RUN apk add --no-cache gcc g++ musl-dev libffi-dev cargo openssl-dev git libc6-c
     && mkdir -p /thinq2-python
 
 WORKDIR /thinq2-python
-COPY pyproject.toml poetry.lock pytest.ini ./
+COPY pyproject.toml pytest.ini ./
 COPY thinq2 /thinq2-python/thinq2
 COPY tests /thinq2-python/tests
 

@@ -5,7 +5,7 @@ description = ""
 authors = ["tinkerborg <tinkerborg@users.noreply.github.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.7"
+python = "^3.11"
 uplink = "^0.9.7"
 marshmallow = "^3.19.0"
 marshmallow-dataclass = "^8.5.11"
