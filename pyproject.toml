@@ -6,24 +6,25 @@ authors = [
     {name = "tinkerborg", email="tinkerborg@users.noreply.github.com"}
 ]
 
-[project.dependencies]
-python = "^3.11"
-uplink = "^0.9.7"
-marshmallow = "^3.19.0"
-marshmallow-dataclass = "^8.5.11"
-inflection = "^0.5.1"
-marshmallow_enum = "^1.5.1"
-PyOpenSSL = "^23.0.0"
-paho-mqtt = "^1.6.1"
-attrdict3 = "^2.0.2"
-deepmerge = "^1.1.0"
+dependencies = [
+'python > 3.9',
+'uplink >= 0.9.7',
+'marshmallow >= 3.19.0',
+'marshmallow-dataclass >= 8.5.11',
+'inflection >= 0.5.1',
+'marshmallow_enum >= 1.5.1',
+'PyOpenSSL >= 23.0.0',
+'paho-mqtt >= 1.6.1',
+'attrdict3 >= 2.0.2',
+'deepmerge >= 1.1.0'
+]
 
-[project.dev-dependencies]
-pytest = "^7.2.1"
-pylint = "^2.16.2"
-black = "^23.1.0"
-flake8 = "^6.0.0"
-rope = "^1.7.0"
+optional-dependencies.dev = [
+'pylint >= 2.16.2',
+'black >= 23.1.0',
+'flake8 >= 6.0.0',
+'rope >= 1.7.0'
+]
 
 [build-system]
-requires = ["setuptools>65.5.0"]
+requires = ["setuptools > 65.5.0"]
