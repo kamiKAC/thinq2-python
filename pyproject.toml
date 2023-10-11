@@ -26,4 +26,4 @@ flake8 = "^6.0.0"
 rope = "^1.7.0"
 
 [build-system]
-requires = ["setuptools>65.5.0", "setuptools-scm"]
+requires = ["setuptools>65.5.0"]
