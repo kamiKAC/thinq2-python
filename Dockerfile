@@ -18,7 +18,8 @@ RUN pip3 -v install python-dev-tools
 RUN python -m venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
 
-RUN pip3 -v install setuptools .
+RUN pip3 -v install .
+RUN pip3 -v install --upgrade setuptools
 
 FROM --platform=$TARGETPLATFORM ${BASE_IMAGE} as thinq
 
