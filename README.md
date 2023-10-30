@@ -1,3 +1,4 @@
+![](https://github.com/kamiKAC/thinq2-python/workflows/build/badge.svg)
 # thinq2-python
 
 This is a reverse-engineered client for the LG ThinQ v2 IoT protocol. 
