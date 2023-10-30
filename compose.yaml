@@ -1,6 +1,7 @@
 services:
     thinq2_mqtt:
         image: "kamikac/thinq2-mqtt"
+        container_name: thinq2-mqtt
         volumes:
             - ./state/:/thinq2-python/state/
         environment:
