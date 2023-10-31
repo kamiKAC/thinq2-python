@@ -70,22 +70,29 @@ Other configuration variables:
 <li>STATE_FILE - location of state (config) file (default 'state/state.json')
 </ul>
     
-Service can be run in container:
+Service can be run in container (below parameters are valid for MQTT server running on localhost without authentication on default port):
 
     mkdir -p state
-    docker run -ti -e COUNTRY_CODE=US -e LANGUAGE_CODE=en-US -v ./state/:/thinq2-python/state/ kamikac/thinq2-mqtt:1.2
+    docker run -ti --rm \
+    -e COUNTRY_CODE=US \
+    -e LANGUAGE_CODE=en-US \
+    -v ./state/:/thinq2-python/state/ \
+    kamikac/thinq2-mqtt:latest
 
-After initial configuration start docker in daemon mode:
+After container start you should get url for authentication in terminal. Paste it in you browser and log in using credentials from LG Thinq app. After succesfull login copy url from browser and paste it in terminal. If there is no error configuration should be OK. You can stop container using Ctrl-C.
+After initial configuration start docker in daemon mode. Edit compose.yaml to suit your configuration and start service with following command:
 
-    docker run -d --name thinq2_mqtt -e COUNTRY_CODE=US -e LANGUAGE_CODE=en-US -v ./state/:/thinq2-python/state/ kamikac/thinq2-mqtt:1.2
+    docker compose up -d
 
 To stop container:
 
-    docker stop thinq2_mqtt
+    docker compose down
+
+Compose file has default configuration which causes start of container when system starts so you don't have to use startup scripts.
 
 
 To build container from sources:
 
     git clone https://github.com/kamiKAC/thinq2-python/
     cd thinq2-python
-    docker build -t thinq2-mqtt:1.2 .
+    docker build -t thinq2-mqtt:latest .
