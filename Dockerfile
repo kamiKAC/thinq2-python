@@ -11,8 +11,6 @@ RUN apk add --no-cache gcc g++ musl-dev libffi-dev cargo openssl-dev git libc6-c
 
 WORKDIR /thinq2-python
 COPY pyproject.toml pytest.ini ./
-COPY thinq2 /thinq2-python/thinq2
-COPY tests /thinq2-python/tests
 
 RUN pip3 -v install python-dev-tools
 RUN python -m venv /opt/venv
@@ -26,9 +24,10 @@ FROM --platform=$TARGETPLATFORM ${BASE_IMAGE} as thinq
 RUN adduser -D thinq
 USER thinq
 COPY --from=base --chown=thinq:thinq /opt/venv /opt/venv
+
 ENV PATH="/opt/venv/bin:$PATH"
 WORKDIR /thinq2-python
-COPY --chown=thinq:thinq thinq2_mqtt.py start.sh ./
+COPY --chown=thinq:thinq thinq2 tests thinq2_mqtt.py start.sh ./
 
 RUN mkdir -p /thinq2-python/state \
     && chmod +x start.sh
