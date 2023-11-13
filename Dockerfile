@@ -23,6 +23,7 @@ RUN pip3 -v install --upgrade setuptools
 
 FROM --platform=$TARGETPLATFORM ${BASE_IMAGE} as thinq
 
+RUN apk update && apk upgrade --no-cache
 RUN adduser -D thinq
 USER thinq
 COPY --from=base --chown=thinq:thinq /opt/venv /opt/venv
