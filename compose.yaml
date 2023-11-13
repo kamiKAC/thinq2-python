@@ -5,6 +5,14 @@ services:
         volumes:
             - ./state/:/thinq2-python/state/
         environment:
-             COUNTRY_CODE: "US"
-             LANGUAGE_CODE: "us-US"
+            COUNTRY_CODE: "US"
+            LANGUAGE_CODE: "us-US"
+            #MQTT_CLIENT_NAME: "thinq_mqtt"  # name of the MQTTclient (default 'thinq_mqtt')
+            #MQTT_HOST: ""                   # hostname or ip address of MQTT server (default 'localhost')
+            #MQTT_PORT: "1883"               # port of MQTT server (default '1883')
+            #MQTT_TOPIC: "thinq"             # topic to which events will be stored to (default 'thinq')
+            #MQTT_USER: ""                   # username for MQTT authentication (empty by default)
+            #MQTT_PASS: ""                   # password for MQTT authentication (empty by default)
+            #MQTT_QOS: ""                    # qos level (default '2')
+            #STATE_FILE: "state/state.json" - location of state (config) file (default 'state/state.json') 
         restart: unless-stopped

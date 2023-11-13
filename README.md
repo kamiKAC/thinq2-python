@@ -65,7 +65,7 @@ Other configuration variables:
 <li>MQTT_PORT - port of MQTT server (default '1883')
 <li>MQTT_TOPIC - topic to which events will be stored to (default 'thinq')
 <li>MQTT_USER - username for MQTT authentication (empty by default)
-<li>MQTT_PASS - possword for MQTT authentication (empty by default)
+<li>MQTT_PASS - password for MQTT authentication (empty by default)
 <li>MQTT_QOS - qos level (default '2')
 <li>STATE_FILE - location of state (config) file (default 'state/state.json')
 </ul>

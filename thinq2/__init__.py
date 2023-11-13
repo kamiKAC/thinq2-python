@@ -15,5 +15,5 @@ OAUTH_SECRET = "c053c2a6ddeb7ad97cb0eed0dcb31cf8"
 LGE_APP_KEY = "LGAO221A02"
 THIRD_PARTY_LOGINS = "GGL,AMZ,FBK"
 
-AWS_IOTT_CA_CERT_URL = "https://www.amazontrust.com/repository/AmazonRootCA1.pem"
+AWS_IOTT_CA_CERT_URL = "https://cacerts.digicert.com/pca3-g5.crt.pem"
 AWS_IOTT_ALPN_PROTOCOL = "x-amzn-mqtt-ca"
