@@ -26,8 +26,10 @@ USER thinq
 COPY --from=base --chown=thinq:thinq /opt/venv /opt/venv
 
 ENV PATH="/opt/venv/bin:$PATH"
+
+COPY --chown=thinq:thinq thinq2 tests thinq2_mqtt.py start.sh /thinq2-python/
+
 WORKDIR /thinq2-python
-COPY --chown=thinq:thinq thinq2 tests thinq2_mqtt.py start.sh ./
 
 RUN mkdir -p /thinq2-python/state \
     && chmod +x start.sh
