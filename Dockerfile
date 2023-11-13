@@ -27,7 +27,9 @@ COPY --from=base --chown=thinq:thinq /opt/venv /opt/venv
 
 ENV PATH="/opt/venv/bin:$PATH"
 
-COPY --chown=thinq:thinq thinq2 tests thinq2_mqtt.py start.sh /thinq2-python/
+COPY --chown=thinq:thinq thinq2_mqtt.py start.sh /thinq2-python/
+COPY --chown=thinq:thinq thinq2 /thinq2-python/thinq2
+COPY --chown=thinq:thinq tests /thinq2-python/tests
 
 WORKDIR /thinq2-python
 
