@@ -12,14 +12,20 @@ RUN apk add --no-cache gcc g++ musl-dev libffi-dev cargo openssl-dev git libc6-c
 WORKDIR /thinq2-python
 COPY pyproject.toml pytest.ini ./
 
+RUN pip3 -v install --upgrade pip
 RUN pip3 -v install python-dev-tools
+
 RUN python -m venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
 
 RUN pip3 -v install .
-RUN pip3 -v install --upgrade setuptools
+RUN pip3 -v install --upgrade setuptools pip
 
 FROM --platform=$TARGETPLATFORM ${BASE_IMAGE} as thinq
+
+ENV PIP_NO_CACHE_DIR=1
+RUN apk update && apk upgrade --no-cache
+RUN pip3 -v install --upgrade pip
 
 RUN adduser -D thinq
 USER thinq
