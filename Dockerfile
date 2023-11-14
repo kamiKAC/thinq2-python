@@ -21,12 +21,12 @@ RUN python -m venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
 
 RUN pip3 -v install .
-RUN pip3 -v install --upgrade setuptools
+RUN pip3 -v install --upgrade setuptools pip
 
 FROM --platform=$TARGETPLATFORM ${BASE_IMAGE} as thinq
 
 RUN apk update && apk upgrade --no-cache
-RUN pip3 -v install --upgrade pip
+
 RUN adduser -D thinq
 USER thinq
 COPY --from=base --chown=thinq:thinq /opt/venv /opt/venv
