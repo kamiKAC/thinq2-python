@@ -14,7 +14,7 @@ COPY pyproject.toml pytest.ini ./
 COPY thinq2 /thinq2-python/thinq2
 COPY tests /thinq2-python/tests
 
-RUN pip3 -v install upgrade pip
+RUN pip3 -v install --upgrade pip
 RUN pip3 -v install python-dev-tools
 
 RUN python -m venv /opt/venv
