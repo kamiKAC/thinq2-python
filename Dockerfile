@@ -25,7 +25,9 @@ RUN pip3 -v install --upgrade setuptools pip
 
 FROM --platform=$TARGETPLATFORM ${BASE_IMAGE} as thinq
 
+ENV PIP_NO_CACHE_DIR=1
 RUN apk update && apk upgrade --no-cache
+RUN pip3 -v install --upgrade pip
 
 RUN adduser -D thinq
 USER thinq
