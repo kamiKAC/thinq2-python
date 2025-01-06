@@ -1,5 +1,5 @@
 from uplink import Field, Path, Query
-from uplink import get, post, delete, json
+from uplink import get, post, delete, json, response_handler
 
 from thinq2.client.base import BaseClient
 from thinq2.model.thinq import (
@@ -11,10 +11,28 @@ from thinq2.model.thinq import (
     ModelJsonDescriptor,
 )
 
+class UnsuccessfulRequest(Exception):
+    """Raised when an HTTP request fails."""
+    def __init__(self, url, status_code, message="HTTP Request Error"):
+        self.url = url
+        self.status_code = status_code
+        self.message = message
+        super().__init__(self.message)
+    def __str__(self):
+      return f"{self.message}.\nURL: {self.url}\nStatus Code: {self.status_code}"
+
+def raise_for_status(response):
+    """Checks whether or not the response was successful."""
+    if 200 <= response.status_code < 300:
+        # Pass through the response.
+        return response
+
+    raise UnsuccessfulRequest( response.url, response.status_code, "400 - maybe you have to accept new terms and condition in LG ThinQ app?" if response.status_code == 400 else "HTTP Request Error")
 
 class ThinQClient(BaseClient):
     """LG ThinQ API client"""
 
+    @response_handler(raise_for_status)
     @get("service/application/dashboard")
     def get_devices(self) -> ThinQResult(DeviceCollection):
         """Retrieves collection of user's registered devices with dashboard data."""

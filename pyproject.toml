@@ -15,7 +15,7 @@ dependencies = [
 'inflection >= 0.5.1',
 'marshmallow_enum >= 1.5.1',
 'PyOpenSSL >= 23.0.0',
-'paho-mqtt >= 1.6.1',
+'paho-mqtt >= 1.6.1, < 2.0',
 'attrdict3 >= 2.0.2',
 'deepmerge >= 1.1.0'
 ]
